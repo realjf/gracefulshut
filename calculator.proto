@@ -1,0 +1,24 @@
+// #############################################################################
+// # File: calculator.proto                                                    #
+// # Project: gracefulshut                                                     #
+// # Created Date: 2023/08/21 20:32:35                                         #
+// # Author: realjf                                                            #
+// # -----                                                                     #
+// # Last Modified: 2023/08/21 20:42:23                                        #
+// # Modified By: realjf                                                       #
+// # -----                                                                     #
+// # Copyright (c) 2023                                                        #
+// #############################################################################
+syntax = "proto3";
+
+package calculator;
+option go_package = "./pb";
+
+service CalculatorService { rpc Add(AddRequest) returns (AddResponse); }
+
+message AddRequest {
+  int32 num1 = 1;
+  int32 num2 = 2;
+}
+
+message AddResponse { int32 result = 1; }

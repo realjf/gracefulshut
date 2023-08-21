@@ -4,7 +4,7 @@
 // # Created Date: 2023/08/21 17:27:40                                         #
 // # Author: realjf                                                            #
 // # -----                                                                     #
-// # Last Modified: 2023/08/21 18:09:42                                        #
+// # Last Modified: 2023/08/21 20:07:46                                        #
 // # Modified By: realjf                                                       #
 // # -----                                                                     #
 // # Copyright (c) 2023                                                        #
@@ -23,7 +23,7 @@ import (
 	"github.com/realjf/gracefulshut"
 )
 
-func TestHttp(t *testing.T) {
+func TestHttpServer(t *testing.T) {
 	g := gracefulshut.NewGracefulHttpServer("127.0.0.1:55555", context.Background())
 	g.Setup()
 	go func() {
