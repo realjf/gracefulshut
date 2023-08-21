@@ -4,7 +4,9 @@ graceful shutdown
 
 ### Features
 
-- Support for the wrap HTTP/GRPC server
+- [x] Support for the wrap HTTP/GRPC server
+- [ ] Support for the wrap custom program
+- [ ] Support for the wrap function
 
 ### Usage
 
