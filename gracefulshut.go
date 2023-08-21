@@ -4,7 +4,7 @@
 // # Created Date: 2023/08/21 16:34:55                                         #
 // # Author: realjf                                                            #
 // # -----                                                                     #
-// # Last Modified: 2023/08/21 17:50:57                                        #
+// # Last Modified: 2023/08/21 18:09:21                                        #
 // # Modified By: realjf                                                       #
 // # -----                                                                     #
 // # Copyright (c) 2023                                                        #
@@ -12,7 +12,7 @@
 package gracefulshut
 
 type GracefulShut interface {
-	Start()
+	Setup() // not block
 	Shutdown() error
 	GetPid() (pid int)
 }

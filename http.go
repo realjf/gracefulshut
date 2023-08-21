@@ -4,7 +4,7 @@
 // # Created Date: 2023/08/21 16:39:04                                         #
 // # Author: realjf                                                            #
 // # -----                                                                     #
-// # Last Modified: 2023/08/21 17:57:37                                        #
+// # Last Modified: 2023/08/21 18:09:02                                        #
 // # Modified By: realjf                                                       #
 // # -----                                                                     #
 // # Copyright (c) 2023                                                        #
@@ -61,7 +61,7 @@ func newGracefulHttp(s *http.Server, parent context.Context, conf *TLSConf) *gra
 	}
 }
 
-func (g *gracefulHttp) Start() {
+func (g *gracefulHttp) Setup() {
 	signal.Notify(g.quit, syscall.SIGINT, syscall.SIGTERM)
 	if g.server.TLSConfig != nil {
 		go func() {

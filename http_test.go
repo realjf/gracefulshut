@@ -4,7 +4,7 @@
 // # Created Date: 2023/08/21 17:27:40                                         #
 // # Author: realjf                                                            #
 // # -----                                                                     #
-// # Last Modified: 2023/08/21 18:00:34                                        #
+// # Last Modified: 2023/08/21 18:09:42                                        #
 // # Modified By: realjf                                                       #
 // # -----                                                                     #
 // # Copyright (c) 2023                                                        #
@@ -25,7 +25,7 @@ import (
 
 func TestHttp(t *testing.T) {
 	g := gracefulshut.NewGracefulHttpServer("127.0.0.1:55555", context.Background())
-	g.Start()
+	g.Setup()
 	go func() {
 		for range time.After(3 * time.Second) {
 			cmd := exec.Command("kill", "-2", fmt.Sprintf("%d", g.GetPid()))
