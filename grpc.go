@@ -4,7 +4,7 @@
 // # Created Date: 2023/08/21 18:16:07                                         #
 // # Author: realjf                                                            #
 // # -----                                                                     #
-// # Last Modified: 2023/08/21 20:04:30                                        #
+// # Last Modified: 2023/08/21 21:00:25                                        #
 // # Modified By: realjf                                                       #
 // # -----                                                                     #
 // # Copyright (c) 2023                                                        #
@@ -51,7 +51,7 @@ func NewGracefulGrpcServer(addr string, server *grpc.Server) (GracefulShut, erro
 	return newGracefulGrpc(server, listener, context.Background()), nil
 }
 
-func WrapGrpc(server *grpc.Server, listener net.Listener, ctx context.Context) GracefulShut {
+func WrapGrpcServer(server *grpc.Server, listener net.Listener, ctx context.Context) GracefulShut {
 	return newGracefulGrpc(server, listener, ctx)
 }
 

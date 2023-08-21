@@ -4,7 +4,7 @@
 // # Created Date: 2023/08/21 18:16:20                                         #
 // # Author: realjf                                                            #
 // # -----                                                                     #
-// # Last Modified: 2023/08/21 20:47:23                                        #
+// # Last Modified: 2023/08/21 21:05:18                                        #
 // # Modified By: realjf                                                       #
 // # -----                                                                     #
 // # Copyright (c) 2023                                                        #
@@ -27,25 +27,15 @@ import (
 	"github.com/realjf/gracefulshut/pb"
 )
 
-type calculatorServer struct {
-	*pb.UnimplementedCalculatorServiceServer
-}
-
-func (s *calculatorServer) Add(ctx context.Context, req *pb.AddRequest) (*pb.AddResponse, error) {
-	result := req.GetNum1() + req.GetNum2()
-	log.Println("result: ", result)
-	return &pb.AddResponse{Result: result}, nil
-}
-
 func TestGrpcServer(t *testing.T) {
 	server := grpc.NewServer()
 	listener, err := net.Listen("tcp", "127.0.0.1:5555")
 	if err != nil {
 		t.Fatal(err)
 	} else {
-		calcServer := &calculatorServer{}
+		calcServer := &gracefulshut.CalculatorServer{}
 		pb.RegisterCalculatorServiceServer(server, calcServer)
-		g := gracefulshut.WrapGrpc(server, listener, context.Background())
+		g := gracefulshut.WrapGrpcServer(server, listener, context.Background())
 		g.Setup()
 		go func() {
 			// kill after 3s

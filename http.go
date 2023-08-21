@@ -4,7 +4,7 @@
 // # Created Date: 2023/08/21 16:39:04                                         #
 // # Author: realjf                                                            #
 // # -----                                                                     #
-// # Last Modified: 2023/08/21 18:09:02                                        #
+// # Last Modified: 2023/08/21 20:59:05                                        #
 // # Modified By: realjf                                                       #
 // # -----                                                                     #
 // # Copyright (c) 2023                                                        #
@@ -42,11 +42,11 @@ func NewGracefulHttpServer(addr string, ctx context.Context) GracefulShut {
 	return newGracefulHttp(s, ctx, nil)
 }
 
-func WrapHttp(s *http.Server, ctx context.Context) GracefulShut {
+func WrapHttpServer(s *http.Server, ctx context.Context) GracefulShut {
 	return newGracefulHttp(s, ctx, nil)
 }
 
-func WrapHttpTLS(s *http.Server, ctx context.Context, conf *TLSConf) GracefulShut {
+func WrapHttpServerWithTLS(s *http.Server, ctx context.Context, conf *TLSConf) GracefulShut {
 	return newGracefulHttp(s, ctx, conf)
 }
 
