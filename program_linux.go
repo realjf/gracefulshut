@@ -1,10 +1,10 @@
 // #############################################################################
-// # File: program.go                                                          #
+// # File: program_linux.go                                                    #
 // # Project: gracefulshut                                                     #
 // # Created Date: 2023/08/21 21:20:10                                         #
 // # Author: realjf                                                            #
 // # -----                                                                     #
-// # Last Modified: 2023/08/22 06:25:27                                        #
+// # Last Modified: 2023/08/22 10:54:41                                        #
 // # Modified By: realjf                                                       #
 // # -----                                                                     #
 // # Copyright (c) 2023                                                        #
@@ -46,7 +46,7 @@ func WrapProgram(ctx context.Context, program Program) GracefulShut {
 }
 
 func (g *gracefulProgram) Setup() {
-	signal.Notify(g.quit, syscall.SIGINT, syscall.SIGTERM)
+	signal.Notify(g.quit, os.Interrupt, syscall.SIGTERM)
 	go func() {
 		if err := g.program.Setup(g.ctx); err != nil {
 			log.Fatal(err)

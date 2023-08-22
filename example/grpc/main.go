@@ -4,11 +4,12 @@
 // # Created Date: 2023/08/21 21:03:35                                         #
 // # Author: realjf                                                            #
 // # -----                                                                     #
-// # Last Modified: 2023/08/21 21:07:26                                        #
+// # Last Modified: 2023/08/22 10:25:24                                        #
 // # Modified By: realjf                                                       #
 // # -----                                                                     #
 // # Copyright (c) 2023                                                        #
 // #############################################################################
+// +build: linux || darwin
 package main
 
 import (
@@ -16,10 +17,9 @@ import (
 	"log"
 	"net"
 
-	"google.golang.org/grpc"
-
 	"github.com/realjf/gracefulshut"
 	"github.com/realjf/gracefulshut/pb"
+	"google.golang.org/grpc"
 )
 
 func main() {
@@ -32,10 +32,15 @@ func main() {
 	pb.RegisterCalculatorServiceServer(server, calcServer)
 	g := gracefulshut.WrapGrpcServer(server, listener, context.Background())
 	g.Setup()
-	calcServer.Add(context.Background(), &pb.AddRequest{
+	res, err := calcServer.Add(context.Background(), &pb.AddRequest{
 		Num1: 1,
 		Num2: 2,
 	})
+	if err != nil {
+		log.Printf("error: %v", err)
+	} else {
+		log.Printf("result: %v", res)
+	}
 	if err := g.Shutdown(); err != nil {
 		log.Panic(err)
 	}

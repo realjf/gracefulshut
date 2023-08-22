@@ -7,6 +7,7 @@ graceful shutdown
 - [x] Support for the wrap HTTP/GRPC server
 - [ ] Support for the wrap custom program
 - [ ] Support for the wrap function
+- [ ] Support Linux/Darwin/Windows
 
 ### Usage
 

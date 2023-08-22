@@ -1,14 +1,15 @@
 // #############################################################################
-// # File: grpc.go                                                             #
+// # File: grpc_linux.go                                                       #
 // # Project: gracefulshut                                                     #
 // # Created Date: 2023/08/21 18:16:07                                         #
 // # Author: realjf                                                            #
 // # -----                                                                     #
-// # Last Modified: 2023/08/21 21:00:25                                        #
+// # Last Modified: 2023/08/22 10:53:54                                        #
 // # Modified By: realjf                                                       #
 // # -----                                                                     #
 // # Copyright (c) 2023                                                        #
 // #############################################################################
+// +build: linux || darwin
 package gracefulshut
 
 import (
@@ -56,7 +57,7 @@ func WrapGrpcServer(server *grpc.Server, listener net.Listener, ctx context.Cont
 }
 
 func (g *gracefulGrpc) Setup() {
-	signal.Notify(g.quit, syscall.SIGINT, syscall.SIGTERM)
+	signal.Notify(g.quit,os.Interrupt, syscall.SIGTERM)
 
 	go func() {
 		if err := g.server.Serve(g.listener); err != nil {

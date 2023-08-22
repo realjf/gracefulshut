@@ -1,10 +1,10 @@
 // #############################################################################
-// # File: grpc_test.go                                                        #
+// # File: grpc_linux_test.go                                                  #
 // # Project: gracefulshut                                                     #
 // # Created Date: 2023/08/21 18:16:20                                         #
 // # Author: realjf                                                            #
 // # -----                                                                     #
-// # Last Modified: 2023/08/21 21:05:18                                        #
+// # Last Modified: 2023/08/22 09:31:41                                        #
 // # Modified By: realjf                                                       #
 // # -----                                                                     #
 // # Copyright (c) 2023                                                        #
@@ -21,10 +21,9 @@ import (
 	"testing"
 	"time"
 
-	"google.golang.org/grpc"
-
 	"github.com/realjf/gracefulshut"
 	"github.com/realjf/gracefulshut/pb"
+	"google.golang.org/grpc"
 )
 
 func TestGrpcServer(t *testing.T) {
@@ -40,14 +39,19 @@ func TestGrpcServer(t *testing.T) {
 		go func() {
 			// kill after 3s
 			for range time.After(3 * time.Second) {
-				calcServer.Add(context.Background(), &pb.AddRequest{
+				res, err := calcServer.Add(context.Background(), &pb.AddRequest{
 					Num1: 1,
 					Num2: 2,
 				})
+				if err != nil {
+					log.Printf("error: %v", err)
+				} else {
+					log.Printf("result: %v", res)
+				}
 				cmd := exec.Command("kill", "-2", fmt.Sprintf("%d", g.GetPid()))
 				var out bytes.Buffer
 				cmd.Stdout = &out
-				err := cmd.Run()
+				err = cmd.Run()
 				if err != nil {
 					log.Fatal(err)
 				} else {
