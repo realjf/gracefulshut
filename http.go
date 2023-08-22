@@ -4,7 +4,7 @@
 // # Created Date: 2023/08/21 16:39:04                                         #
 // # Author: realjf                                                            #
 // # -----                                                                     #
-// # Last Modified: 2023/08/21 20:59:05                                        #
+// # Last Modified: 2023/08/22 10:58:48                                        #
 // # Modified By: realjf                                                       #
 // # -----                                                                     #
 // # Copyright (c) 2023                                                        #
@@ -62,7 +62,7 @@ func newGracefulHttp(s *http.Server, parent context.Context, conf *TLSConf) *gra
 }
 
 func (g *gracefulHttp) Setup() {
-	signal.Notify(g.quit, syscall.SIGINT, syscall.SIGTERM)
+	signal.Notify(g.quit, os.Interrupt, syscall.SIGTERM)
 	if g.server.TLSConfig != nil {
 		go func() {
 			if err := g.server.ListenAndServeTLS(g.TLSConf.CertFile, g.TLSConf.KeyFile); err != nil && !errors.Is(err, http.ErrServerClosed) {
